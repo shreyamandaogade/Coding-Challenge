@@ -1,0 +1,22 @@
+lass Solution {
+public:
+    int diameter = 0;
+
+    int findHeight(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        int left = findHeight(root->left);
+        int right = findHeight(root->right);
+
+        diameter = max(diameter, left + right);
+
+        return max(left, right) + 1;
+    }
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        findHeight(root);
+        return diameter;
+    }
+};
