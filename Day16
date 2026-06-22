@@ -1,0 +1,20 @@
+class Solution {
+private:
+    TreeNode* prev = nullptr;
+
+    void dfs(TreeNode* node) {
+        if (!node) return;
+
+        dfs(node->right);
+        dfs(node->left);
+
+        node->right = prev;
+        node->left = nullptr;
+        prev = node;
+    }
+
+public:
+    void flatten(TreeNode* root) {
+        dfs(root);
+    }
+};
