@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> diffWaysToCompute(string expression) {
+        vector<int> ans;
+
+        for (int i = 0; i < expression.size(); i++) {
+            char c = expression[i];
+
+            if (c == '+' || c == '-' || c == '*') {
+                string left = expression.substr(0, i);
+                string right = expression.substr(i + 1);
+
+                vector<int> a = diffWaysToCompute(left);
+                vector<int> b = diffWaysToCompute(right);
+
+                for (int x : a) {
+                    for (int y : b) {
+                        if (c == '+')
+                            ans.push_back(x + y);
+                        else if (c == '-')
+                            ans.push_back(x-y);
+                        else
+                            ans.push_back(x * y);
+                    }
+                }
+            }
+        }
+       if (ans.empty())
+           ans.push_back(stoi(expression));
+        return ans; 
+    }
+};
