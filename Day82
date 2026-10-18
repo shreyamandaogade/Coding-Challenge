@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int getMoneyAmount(int n) {
+        int dp[201][201] = {};
+
+        for (int len = 2; len <= n; len++) {
+            for (int left = 1; left + len - 1 <= n; left++) {
+                int right = left + len - 1;
+                dp[left][right] = INT_MAX;
+
+                for (int k = left; k < right; k++) {
+                    int cost = k + max(dp[left][k - 1], dp[k +  1][right]);
+                    dp[left][right] = min(dp[left][right], cost);
+                }
+            }
+        }
+       return dp[1][n]; 
+    }
+};
